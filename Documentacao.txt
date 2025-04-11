@@ -1,0 +1,139 @@
+## Documentação do Sistema de Empréstimo de DVDs
+
+### 1. **Classe `Genero` (Enum)**
+Esta classe define os tipos de gênero de filmes disponíveis. Utiliza o módulo `Enum` para representar os gêneros de forma mais legível e estruturada.
+
+#### Atributos:
+- **COMEDIA**: Representa o gênero de comédia.
+- **ROMANCE**: Representa o gênero de romance.
+- **AVENTURA**: Representa o gênero de aventura.
+- **ACAO**: Representa o gênero de ação.
+- **TERROR**: Representa o gênero de terror.
+- **DRAMA**: Representa o gênero de drama.
+- **FICCAO_CIENTIFICA**: Representa o gênero de ficção científica.
+- **DOCUMENTARIO**: Representa o gênero de documentário.
+
+### 2. **Classe `Amigo`**
+Esta classe representa um amigo que pode emprestar DVDs. Cada amigo possui um identificador, nome, telefone e e-mail.
+
+#### Atributos:
+- **id**: Identificador único do amigo.
+- **nome**: Nome do amigo.
+- **telefone**: Número de telefone do amigo.
+- **email**: Endereço de e-mail do amigo.
+
+#### Métodos:
+- **`__repr__()`**: Método que retorna uma representação legível do objeto `Amigo`.
+
+### 3. **Classe `DVD`**
+Esta classe representa um DVD disponível para empréstimo. Cada DVD possui informações como título, sinopse, diretor, ator principal, gênero e faixa etária recomendada.
+
+#### Atributos:
+- **id**: Identificador único do DVD.
+- **titulo**: Título do DVD.
+- **sinopse**: Sinopse do filme.
+- **diretor**: Diretor do filme.
+- **ator_principal**: Ator principal do filme.
+- **genero**: Gênero do filme (utiliza a enumeração `Genero`).
+- **faixa_etaria**: Faixa etária recomendada para o filme.
+
+#### Métodos:
+- **`__repr__()`**: Método que retorna uma representação legível do objeto `DVD`.
+
+### 4. **Classe `Emprestimo`**
+Representa um empréstimo de um DVD a um amigo. Inclui informações sobre a data do empréstimo, a data de devolução (inicialmente `None`), o amigo que fez o empréstimo e o DVD emprestado.
+
+#### Atributos:
+- **id**: Identificador único do empréstimo.
+- **data_emprestimo**: Data e hora em que o DVD foi emprestado.
+- **data_devolucao**: Data e hora em que o DVD foi devolvido (inicialmente `None`).
+- **amigo**: O amigo que fez o empréstimo (objeto da classe `Amigo`).
+- **dvd**: O DVD emprestado (objeto da classe `DVD`).
+
+#### Métodos:
+- **`__repr__()`**: Método que retorna uma representação legível do objeto `Emprestimo`.
+
+### 5. **Classe `AmigoRepository`**
+Classe responsável por gerenciar a lista de amigos no sistema. Realiza operações de criação, armazenamento e recuperação de amigos.
+
+#### Atributos:
+- **amigos**: Lista que armazena todos os amigos.
+- **next_id**: Contador para atribuir um identificador único ao próximo amigo.
+
+#### Métodos:
+- **salvar(amigo)**: Adiciona um amigo à lista `amigos`.
+- **criar(nome, telefone, email)**: Cria um novo amigo e o salva.
+- **listar()**: Retorna todos os amigos cadastrados.
+- **buscar_por_id(id)**: Retorna um amigo específico baseado no seu `id`.
+
+### 6. **Classe `DVDRepository`**
+Classe responsável por gerenciar a lista de DVDs no sistema. Realiza operações de criação, armazenamento e recuperação de DVDs.
+
+#### Atributos:
+- **dvds**: Lista que armazena todos os DVDs.
+- **next_id**: Contador para atribuir um identificador único ao próximo DVD.
+
+#### Métodos:
+- **salvar(dvd)**: Adiciona um DVD à lista `dvds`.
+- **criar(titulo, sinopse, diretor, ator_principal, genero, faixa_etaria)**: Cria um novo DVD e o salva.
+- **listar()**: Retorna todos os DVDs cadastrados.
+- **buscar_por_id(id)**: Retorna um DVD específico baseado no seu `id`.
+
+### 7. **Classe `EmprestimoRepository`**
+Classe responsável por gerenciar a lista de empréstimos no sistema. Realiza operações de criação, armazenamento, devolução e verificação de disponibilidade de DVDs.
+
+#### Atributos:
+- **emprestimos**: Lista que armazena todos os empréstimos.
+- **next_id**: Contador para atribuir um identificador único ao próximo empréstimo.
+
+#### Métodos:
+- **salvar(emprestimo)**: Adiciona um empréstimo à lista `emprestimos`.
+- **criar(amigo, dvd)**: Cria um novo empréstimo e o salva.
+- **listar()**: Retorna todos os empréstimos cadastrados.
+- **listar_ativos()**: Retorna todos os empréstimos que não foram devolvidos.
+- **devolver(id)**: Marca um empréstimo como devolvido (definindo a data de devolução).
+- **esta_disponivel(dvd_id)**: Verifica se um DVD está disponível para empréstimo.
+
+### 8. **Classe `AmigoService`**
+Esta classe fornece os serviços para interagir com os amigos. É responsável por cadastrar, listar e buscar amigos no sistema.
+
+#### Atributos:
+- **repo**: Instância do repositório `AmigoRepository` para armazenar e gerenciar amigos.
+
+#### Métodos:
+- **cadastrar(nome, telefone, email)**: Cria e salva um novo amigo.
+- **listar()**: Retorna todos os amigos cadastrados.
+- **buscar_por_id(id)**: Retorna um amigo específico baseado no seu `id`.
+
+### 9. **Classe `DVDService`**
+Esta classe fornece os serviços para interagir com os DVDs. É responsável por cadastrar, listar e buscar DVDs no sistema.
+
+#### Atributos:
+- **repo**: Instância do repositório `DVDRepository` para armazenar e gerenciar DVDs.
+
+#### Métodos:
+- **cadastrar(titulo, sinopse, diretor, ator_principal, genero, faixa_etaria)**: Cria e salva um novo DVD.
+- **listar()**: Retorna todos os DVDs cadastrados.
+- **buscar_por_id(id)**: Retorna um DVD específico baseado no seu `id`.
+
+### 10. **Classe `EmprestimoService`**
+Esta classe fornece os serviços para interagir com os empréstimos. É responsável por registrar empréstimos, devoluções e listar os empréstimos ativos.
+
+#### Atributos:
+- **repo**: Instância do repositório `EmprestimoRepository` para armazenar e gerenciar empréstimos.
+
+#### Métodos:
+- **emprestar(amigo, dvd)**: Registra um novo empréstimo de um DVD para um amigo.
+- **devolver(emprestimo_id)**: Registra a devolução de um empréstimo.
+- **listar_ativos()**: Retorna todos os empréstimos que não foram devolvidos.
+
+---
+
+Este sistema de gerenciamento de empréstimos de DVDs pode ser utilizado para cadastrar amigos e DVDs, registrar empréstimos e devoluções, e verificar a disponibilidade de DVDs para empréstimo. Ele utiliza uma abordagem orientada a objetos, com classes separadas para representar os dados e serviços relacionados a amigos, DVDs e empréstimos.
+
+
+
+
+
+
+Alunos:Caio César (RA:13523114464), Lucas Francisco (RA:1352219310) , Luiz Ricardo (RA: 1352223462) e Pedro Henrique (RA:1352222176)
